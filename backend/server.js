@@ -18,6 +18,11 @@ app.post('/api/example/test', (req, res) => {
     console.log(`Simulated SQL Query: ${simulatedSQLQuery}`);
         res.json({ message: 'Potential SQL Injection detected!' });
     } 
+    if ((username.startsWith('<script>') && username.endsWith('</script>')) ||
+           (password.startsWith('<script>') && password.endsWith('</script>'))) {
+    console.log('Potential XSS Attack detected!');
+    res.json({ message: 'Potential XSS Attack detected!' });
+}
     if (username === 'admin' && password === 'admin') {
         res.json({ message: 'Login successful!' });
     } else {
